@@ -1,4 +1,5 @@
 #include "grid.hpp"
+#include <iostream>
 
 Grid::Grid(int rows, int cols)
 {
@@ -74,39 +75,82 @@ void Grid::click(int x, int y)
     
 }
 
+
 void Grid::update()
 {
     for (int i = 0; i < this->rows; i ++)
     {
         for (int j = 0; j < this->cols; j++)
         {
-            //si esta activa
+            int neighbors = this->contarVecinos(i, j);
+            //si esta celula esta viva
+
             if (this->grid[i][j] == 1)
             {
-                if(j == this->cols-1) //si esta abajo
+                if(neighbors > 3 || neighbors <= 1) //se muere
+                {
+                    this->next[i][j] = 0;
+                }
+                if(neighbors >= 2 && neighbors <= 3)
                 {
                     this->next[i][j] = 1;
                 }
+                
+            }
 
-                else
-
+            if (this->grid[i][j] == 0)
+            {
+                if(neighbors == 3)
                 {
-                    if(this->grid[i][j+1] == 0)
-                    {
-                        this->next[i][j+1] = 1;
-                        this->next[i][j] = 0;
-                    }
-
-                    else
-                    
-                    {
-                        this->next[i][j] = 1;
-                    }
+                    this->next[i][j] = 1;
                 }
+                else
+                {
+                    this->next[i][j] = 0;
+                }
+            }
                 
 
-            }
+            
         }
     }
     this->grid = this->next;
+}
+
+int Grid::contarVecinos(int x, int y)
+{
+    int total = 0;
+    if (this->grid[x][y+1] == 1)
+    {
+        total++;
+    }
+    if (this->grid[x][y-1] == 1)
+    {
+        total++;
+    }
+    if (this->grid[x+1][y+1] == 1)
+    {
+        total++;
+    }
+    if (this->grid[x-1][y+1] == 1)
+    {
+        total++;
+    }
+    if (this->grid[x+1][y] == 1)
+    {
+        total++;
+    }
+    if (this->grid[x-1][y] == 1)
+    {
+        total++;
+    }
+    if (this->grid[x+1][y-1] == 1)
+    {
+        total++;
+    }
+    if (this->grid[x-1][y-1] == 1)
+    {
+        total++;
+    }
+     return total; 
 }

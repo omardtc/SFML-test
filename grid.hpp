@@ -22,6 +22,7 @@ public:
     void drawTo(RenderWindow &window);
     void click(int x, int y);
     void update();
+    int contarVecinos(int x, int y);
 
 };
 
