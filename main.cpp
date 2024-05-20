@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <bits/stdc++.h>
 #include "grid.hpp"
 using namespace sf;
 
@@ -8,11 +9,23 @@ int numCells = 10;
 
 int main()
 {
-    RenderWindow window(VideoMode(400, 400), "Hola Ohio");
+    RenderWindow window(VideoMode(800, 800), "Echo Dash");
     window.setFramerateLimit(10);
     Grid grid(numCells, numCells, width, height);
+    Texture kirbyTexture;
     //CircleShape shape(100.f);
     //shape.setFillColor(Color(160,178,32));
+    if(!kirbyTexture.loadFromFile("images/kirby.png.png"))
+    {
+        cout << "Error al cargar imagen" << endl;
+    }
+    kirbyTexture.setRepeated(true);
+
+    Sprite kirby;
+    kirby.setTexture(kirbyTexture);
+    kirby.setTextureRect(IntRect(0,0, 800, 181));
+    int opacidad = 255;
+
 
     while (window.isOpen())
     {
@@ -36,7 +49,7 @@ int main()
         window.clear(Color(51,51,51));
         grid.update();
         grid.drawTo(window);
-        //window.draw(shape);
+        window.draw(kirby);
         window.display();
     }
 

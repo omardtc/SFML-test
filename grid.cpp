@@ -46,11 +46,11 @@ void Grid::drawTo(RenderWindow &window)
             
             RectangleShape rect(Vector2f(this->sizeX, this->sizeY));
             rect.setOutlineColor(Color::Black);
-            rect.setFillColor(Color(1,120,255));
+            rect.setFillColor(Color::Blue);
             rect.setOutlineThickness(1);
             rect.setPosition(Vector2f(j*this->sizeX, i*this->sizeY));
             if(grid[j][i]==0)
-                rect.setFillColor(Color(51,51,51));
+                rect.setFillColor(Color::Blue);
             if(grid[j][i]==1)
                 rect.setFillColor(Color::Cyan);
             window.draw(rect);
