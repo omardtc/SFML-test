@@ -20,8 +20,7 @@ public:
     Grid(int rows, int cols, int sizeX, int sizeY);
     
     void drawTo(RenderWindow &window);
-    void click(int x, int y);
-    void update();
+    //void update();
 
 };
 

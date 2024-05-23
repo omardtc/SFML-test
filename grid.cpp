@@ -51,8 +51,6 @@ void Grid::drawTo(RenderWindow &window)
             rect.setPosition(Vector2f(j*this->sizeX, i*this->sizeY));
             if(grid[j][i]==0)
                 rect.setFillColor(Color::Blue);
-            if(grid[j][i]==1)
-                rect.setFillColor(Color::Cyan);
             window.draw(rect);
             /**
              * crear cuadrado (RectangleShape)
@@ -65,16 +63,9 @@ void Grid::drawTo(RenderWindow &window)
     }
 }
 
-void Grid::click(int x, int y)
-{
-    int indexX = x /this->sizeX;
-    int indexY = y /this->sizeY;
-    grid[indexX][indexY] = (grid[indexX][indexY]+1)%2;
 
-    
-}
 
-void Grid::update()
+/*void Grid::update()
 {
     for (int i = 0; i < this->rows; i ++)
     {
@@ -109,4 +100,4 @@ void Grid::update()
         }
     }
     this->grid = this->next;
-}
+}*/
