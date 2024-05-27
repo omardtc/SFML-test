@@ -40,4 +40,4 @@ void Player::update()
         this->speed.y = 0.f;
         this->sprite.setPosition(0,-18);
     }
-}
+} 
