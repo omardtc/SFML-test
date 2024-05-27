@@ -32,12 +32,40 @@ void Player::update()
 
     if(this->sprite.getPosition().y + 160 > 800)
     {
-        this->sprite.setPosition(0, 645);
+        this->sprite.setPosition(this->sprite.getPosition().x, 620);
+        this->speed.y = 0.f;
+        this->acc = {0.f, 0.f};
     }
 
     if(this->sprite.getPosition().y < -18)
     {
         this->speed.y = 0.f;
-        this->sprite.setPosition(0,-18);
+        this->sprite.setPosition(this->sprite.getPosition().x,-18);
+    }
+
+    if(this->sprite.getPosition().x < 0)
+    {
+        this->speed.x = 0.f;
+        this->sprite.setPosition(0, this->sprite.getPosition().y);
+    }
+
+    if(this->sprite.getPosition().x + 100 > 800)
+    {
+        this->speed.x = 0.f;
+        this->sprite.setPosition(700, this->sprite.getPosition().y);
     }
 } 
+
+void Player::moveR()
+{
+    this->sprite.setScale(0.5f, 0.5f);
+    this->speed.x = 10;
+    this->sprite.move(this->speed);
+}
+
+void Player::moveL()
+{
+    this->sprite.setScale(-0.5f, 0.5f);
+    this->speed.x = -10;
+    this->sprite.move(this->speed);
+}

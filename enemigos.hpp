@@ -19,4 +19,33 @@ void drawTo(RenderWindow &window);
 void update();
 
 };
+
+class EnemigoT
+{
+public:
+Vector2f speed;
+Vector2f acc;
+Sprite sprite;
+
+EnemigoT(Sprite sprite);
+
+void drawTo(RenderWindow &window);
+void update();
+
+};
+
+class EnemigoA
+{
+public:
+Vector2f speed;
+Vector2f acc;
+Sprite sprite;
+
+EnemigoA(Sprite sprite);
+
+void drawTo(RenderWindow &window);
+void update();
+
+};
+
 #endif

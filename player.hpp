@@ -18,6 +18,8 @@ Vector2f acc = {0.f, 20.f};
 Player(string nombre, Sprite sprite);
 
 void click(); 
+void moveR();
+void moveL();
 void drawTo(RenderWindow &window);
 void update();
 };
