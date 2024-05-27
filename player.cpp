@@ -54,6 +54,7 @@ void Player::update()
         this->speed.x = 0.f;
         this->sprite.setPosition(700, this->sprite.getPosition().y);
     }
+    this->speed.x =0.f;
 } 
 
 void Player::moveR()
