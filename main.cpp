@@ -32,7 +32,7 @@ int main()
     Sprite kirby;
     kirby.setTexture(kirbyTexture);
     kirby.setTextureRect(IntRect(0,0, 200, 160));
-    kirby.setScale(0.5f, 0.5f); //para reducir tamaño
+    //kirby.setScale(0.5f, 0.5f); para reducir tamaño
     int opacidad = 255;
     kirby.setPosition(0,645);
     Player p(name, kirby);
