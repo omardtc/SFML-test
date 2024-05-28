@@ -60,3 +60,4 @@ void EnemigoA::update()
     this->sprite.move(this->speed);
     this->sprite.rotate(-30);
 }
+

@@ -34,8 +34,9 @@ int main()
     kirby.setTexture(kirbyTexture);
     kirby.setTextureRect(IntRect(0,0, 200, 160));
     kirby.setScale(0.5f, 0.5f);
+    kirby.setOrigin(118, 98);
     int opacidad = 255;
-    kirby.setPosition(0,620);
+    kirby.setPosition(118,670);
     Player p(name, kirby);
 
     Texture metaTexture;
@@ -96,6 +97,10 @@ int main()
     //pasto.setPosition(-20, 700);
     Pasto fondo(pasto);
 
+    p.enemigos.push_back(enemy1);
+    p.enemigosa.push_back(enemy3);
+    p.enemigost.push_back(enemy2);
+
     while (window.isOpen())
     {
         Event event;
@@ -103,40 +108,60 @@ int main()
         {
             if (event.type == Event::Closed)
                 window.close();
-            if (event.type == Event::KeyPressed)
-            {
-                if (event.mouseButton.button == Keyboard::Space || event.mouseButton.button == Keyboard::Up )
+                
+        if (event.mouseButton.button == Keyboard::Space || event.mouseButton.button == Keyboard::Up || Keyboard::isKeyPressed(Keyboard::W) )
                 {
                     p.click();
                 }
-                if (Keyboard::isKeyPressed(Keyboard::Right))
+            
+        }
+
+        if (Keyboard::isKeyPressed(Keyboard::D)||Keyboard::isKeyPressed(Keyboard::Right))
                 {
                     p.moveR();
                 }
-                if(Keyboard::isKeyPressed(Keyboard::Left))
+
+               
+        if(Keyboard::isKeyPressed(Keyboard::Left)||Keyboard::isKeyPressed(Keyboard::A))
                 {
                     p.moveL();
                 }
-            }
-        }
+            
 
 
         window.clear(Color(51,51,51));
         //grid.update();
         p.update();
-        enemy1.update();
-        enemy2.update();
-        enemy3.update();
+        p.enemigos[0].update();
+        p.enemigost[0].update();
+        p.enemigosa[0].update();    
+      /**  for(int i = 0; i < p.enemigos.size(); i++)
+        {
+
+            
+        }
+        for(int i = 0; i < p.enemigost.size(); i++)
+        {
+            
+        }
+        for(int i = 0; i < p.enemigosa.size(); i++)
+        {
+           
+
+        }
+        */
         grid.drawTo(window);
         fondo.drawTo(window);
         p.drawTo(window);
-        enemy1.drawTo(window);
-        
-        enemy2.drawTo(window);
-        enemy3.drawTo(window);
+        p.enemigos[0].drawTo(window);
+        p.enemigost[0].drawTo(window);
+        p.enemigosa[0].drawTo(window);
+
+
 
         window.display();
     }
+    
 
     return 0;
 }

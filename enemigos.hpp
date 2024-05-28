@@ -18,6 +18,7 @@ Enemigo(Sprite sprite);
 void drawTo(RenderWindow &window);
 void update();
 
+
 };
 
 class EnemigoT
@@ -32,6 +33,7 @@ EnemigoT(Sprite sprite);
 void drawTo(RenderWindow &window);
 void update();
 
+
 };
 
 class EnemigoA
@@ -45,6 +47,7 @@ EnemigoA(Sprite sprite);
 
 void drawTo(RenderWindow &window);
 void update();
+
 
 };
 

@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <bits/stdc++.h>
+#include "enemigos.hpp"
 using namespace std;
 using namespace sf;
 
@@ -14,6 +15,9 @@ string nombre;
 int vidas = 3;
 Vector2f speed = {0.f, 0.f};
 Vector2f acc = {0.f, 20.f};
+vector<Enemigo> enemigos;
+vector<EnemigoA> enemigosa;
+vector<EnemigoT> enemigost;
 
 Player(string nombre, Sprite sprite);
 
@@ -22,6 +26,7 @@ void moveR();
 void moveL();
 void drawTo(RenderWindow &window);
 void update();
+
 };
 
 #endif 
