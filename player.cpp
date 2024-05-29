@@ -1,4 +1,4 @@
-#include "player.hpp"
+#include "player.hpp" 
 
 Player::Player(string nombre, Sprite sprite)
 {
@@ -84,7 +84,12 @@ void Player::update()
 
    if(this->vidas == 0)
    {
-        this->sprite.setColor(Color::Transparent);
+        //this->sprite.setColor(Color::Transparent);
+        int opacidad = 255;
+
+            this->sprite.setColor(Color(255, 255, 255, opacidad));
+            opacidad--;
+        
    }
 } 
 

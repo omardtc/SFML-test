@@ -13,7 +13,7 @@ Vector2f speed;
 Vector2f acc;
 Sprite sprite;
 
-Enemigo(Sprite sprite);
+Enemigo(Sprite sprite, float pos);
 
 void drawTo(RenderWindow &window);
 void update();
@@ -28,7 +28,7 @@ Vector2f speed;
 Vector2f acc;
 Sprite sprite;
 
-EnemigoT(Sprite sprite);
+EnemigoT(Sprite sprite, float pos);
 
 void drawTo(RenderWindow &window);
 void update();
@@ -43,7 +43,7 @@ Vector2f speed;
 Vector2f acc;
 Sprite sprite;
 
-EnemigoA(Sprite sprite);
+EnemigoA(Sprite sprite, float pos);
 
 void drawTo(RenderWindow &window);
 void update();
