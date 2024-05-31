@@ -11,6 +11,7 @@ using namespace sf;
 int width = 800;
 int height = 800;
 int numCells = 20;
+int puntaje = 0;
 string name;
 
 float getRandom(float min, float max)
@@ -30,6 +31,8 @@ int main()
 
     int random = 550 - (rand() % 150);
     int random1 = 650 - (rand() % 150);
+
+    
     Texture kirbyTexture;
     if (!kirbyTexture.loadFromFile("images/kirby2dnb.png"))
     {
@@ -126,6 +129,19 @@ int main()
     // pasto.setPosition(-20, 700);
     Pasto fondo(pasto);
 
+    Texture dTexture;
+    if (!dTexture.loadFromFile("images/defeat.jfif"))
+    {
+        cout << "Error al cargar imagen" << endl;
+    }
+    dTexture.setRepeated(true);
+
+    Sprite d;
+    d.setTexture(dTexture);
+    d.setPosition(0,0);
+    d.setScale(0.4f, 0.4f); // para reducir el tamaño
+
+
    // p.enemigos.push_back(Enemigo(meta, getRandom(100, 700)));
     //p.enemigosa.push_back(EnemigoA(flame, getRandom(100, 700)));
     //p.enemigost.push_back(EnemigoT(gordo, getRandom(100, 700)));
@@ -195,16 +211,15 @@ int main()
         for(int i = 0; i < p.monedas.size(); i++)
         {
             p.monedas[i].update();
-            p.monedas[i].drawTo(window);
-        }
-
-        for(int i = 0; i < p.monedas.size(); i++)
-        {
+            p.monedas[i].drawTo(window); 
             if(p.puntos())
             {
+                puntaje++;
                 p.monedas.erase(p.monedas.begin()+i);
             }
         }
+        
+
        for(int i = 0; i < p.enemigos.size(); i++)
         {
             p.enemigos[i].update();
@@ -223,10 +238,9 @@ int main()
         if(p.choque())
         {
             p.vidas--;
-             if (!p.lifes.empty()) {
+            if (!p.lifes.empty()) {
             p.lifes.pop_back(); // Eliminar el último elemento del vector "lifes"
             }
-         
             //p.lifes.erase(p.lifes.begin());
             if(p.vidas==0)
             {
@@ -235,13 +249,26 @@ int main()
             else{
                 kirby.setPosition(118,670);//posicion de origen
             }
+            
            
         }       
 
         p.update();
         p.drawTo(window);
-
-        window.display();
+    Font font;
+    if (!font.loadFromFile("images/font.ttf"))
+    {
+    cout << "Error al cargar la fuente" << endl;
+    }
+    Text textoPuntaje;
+    textoPuntaje.setFont(font);
+    textoPuntaje.setString("Puntaje: " + to_string(puntaje));
+    textoPuntaje.setCharacterSize(24);
+    textoPuntaje.setFillColor(Color::White);
+    textoPuntaje.setPosition(600, 25);
+    
+    window.draw(textoPuntaje);
+    window.display();
     }
 
     return 0;
