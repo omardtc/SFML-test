@@ -60,37 +60,21 @@ void Player::update()
     x = this->sprite.getPosition().x;
     y = this->sprite.getPosition().y;
 
-
-   if(this->sprite.getGlobalBounds().intersects(enemigos[0].sprite.getGlobalBounds()))
-   {
-        this->sprite.setPosition(118,670);
-        this->vidas--;
-
-   }
-
-   if(this->sprite.getGlobalBounds().intersects(enemigosa[0].sprite.getGlobalBounds()))
-   {
-        this->sprite.setPosition(118,670);
-        this->vidas--;
-
-   }
-
-   if(this->sprite.getGlobalBounds().intersects(enemigost[0].sprite.getGlobalBounds()))
-   {
-        this->sprite.setPosition(118,670);
-        this->vidas--;
-
-   }
-
-   if(this->vidas == 0)
-   {
-        //this->sprite.setColor(Color::Transparent);
-        int opacidad = 255;
-
-            this->sprite.setColor(Color(255, 255, 255, opacidad));
-            opacidad--;
-        
-   }
+ 
+   if (choque())
+        {
+            this->vidas--;
+            if(this->vidas > 0)
+            {
+            this->sprite.setPosition(118,670);//posicion de origen
+            }
+            else
+            {
+                this->sprite.setColor(Color(255,255,255,0));
+            }
+        }       
+    
+    
 } 
 
 void Player::moveR()
@@ -107,3 +91,42 @@ void Player::moveL()
     this->sprite.move(this->speed);
 }
 
+bool Player::choque()
+{
+    for(int i=0; i<enemigos.size();i++)
+    {
+        if(this->sprite.getGlobalBounds().intersects(this->enemigos[i].sprite.getGlobalBounds()))
+        {
+        return true;
+        }
+    }
+    
+    for(int i=0; i<enemigost.size();i++)
+    {
+        if(this->sprite.getGlobalBounds().intersects(this->enemigost[i].sprite.getGlobalBounds()))
+        {
+        return true;
+        }
+    }
+    
+    for(int i=0; i<enemigosa.size();i++)
+    {
+        if(this->sprite.getGlobalBounds().intersects(this->enemigosa[i].sprite.getGlobalBounds()))
+        {
+        return true;
+        }
+    }
+    return false;
+}
+
+bool Player::puntos()
+{
+    for (int i = 0; i < monedas.size(); i++)
+    {
+        if (this->sprite.getGlobalBounds().intersects(this->monedas[i].sprite.getGlobalBounds()))
+        {
+            return true;
+        }
+     }
+     return false;
+}

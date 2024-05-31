@@ -3,6 +3,8 @@
 #include "grid.hpp"
 #include "player.hpp"
 #include "enemigos.hpp"
+#include "coin.hpp"
+#include "life.hpp"
 #include "bg.hpp"
 using namespace sf;
 
@@ -13,7 +15,7 @@ string name;
 
 float getRandom(float min, float max)
 {
-    return min + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max-min)));
+    return min + (rand()/(float)RAND_MAX)*(max-min);
 }
 
 int main()
@@ -21,7 +23,7 @@ int main()
     RenderWindow window(VideoMode(800, 800), "Echo Dash");
     window.setFramerateLimit(10);
     Grid grid(numCells, numCells, width, height);
-    srand(static_cast<unsigned int>(time(nullptr)));
+    srand(45);
 
     // cout << "Introduzca su nombre" << endl;
     // cin >> name;
@@ -83,6 +85,32 @@ int main()
     flame.setPosition(800, random1);
     flame.setScale(0.1f, 0.1f); // para reducir el tamaño
 
+    Texture coinTexture;
+    if (!coinTexture.loadFromFile("images/moneda.png"))
+    {
+        cout << "Error al cargar imagen" << endl;
+    }
+    coinTexture.setRepeated(true);
+
+    Sprite coin;
+    coin.setTexture(coinTexture);
+    coin.setPosition(800, 650);
+    coin.setScale(0.1f, 0.1f); // para reducir el tamaño
+    //coin.setOrigin(80, 80);
+
+    Texture vidaTexture;
+    if (!vidaTexture.loadFromFile("images/life.png"))
+    {
+        cout << "Error al cargar imagen" << endl;
+    }
+    vidaTexture.setRepeated(true);
+
+    Sprite vida;
+    vida.setTexture(vidaTexture);
+    vida.setPosition(0, 0);
+    vida.setScale(0.1f, 0.1f); // para reducir el tamaño
+    vida.setOrigin(80, 80);
+
     Texture pastoTexture;
     if (!pastoTexture.loadFromFile("images/montanas.jpg"))
     {
@@ -98,9 +126,16 @@ int main()
     // pasto.setPosition(-20, 700);
     Pasto fondo(pasto);
 
-    p.enemigos.push_back(Enemigo(meta, getRandom(100, 700)));
-    p.enemigosa.push_back(EnemigoA(flame, getRandom(100, 700)));
-    p.enemigost.push_back(EnemigoT(gordo, getRandom(100, 700)));
+   // p.enemigos.push_back(Enemigo(meta, getRandom(100, 700)));
+    //p.enemigosa.push_back(EnemigoA(flame, getRandom(100, 700)));
+    //p.enemigost.push_back(EnemigoT(gordo, getRandom(100, 700)));
+
+    Clock clock;
+    float timer = 0;
+
+    p.lifes.push_back(Vida(vida, 0, 10));
+    p.lifes.push_back(Vida(vida, 40, 10));
+    p.lifes.push_back(Vida(vida, 80, 10));
 
     while (window.isOpen())
     {
@@ -130,35 +165,81 @@ int main()
         }
 
         window.clear(Color(51, 51, 51));
-        // grid.update();
-        p.update();
-        // p.enemigos[0].update();
-        p.enemigost[0].update();
-        p.enemigosa[0].update();
-        for (auto &enemigo : p.enemigos)
+        float tiempo = clock.restart().asSeconds();
+        timer+=tiempo;
+
+        if(timer > 3.0f)
         {
-            enemigo.update();
-            enemigo.drawTo(window);
+            float randomY = getRandom(100, 600);
+            float randomX = getRandom(100, 600);
+            p.enemigos.push_back(Enemigo(meta, randomY));
+            p.enemigosa.push_back(EnemigoA(flame, randomY));
+            p.enemigost.push_back(EnemigoT(gordo, randomY));
+            p.monedas.push_back(Coin(coin, randomX, randomY));
+            timer = 0;
         }
-
-
-        /**
-          for(int i = 0; i < p.enemigost.size(); i++)
-          {
-
-          }
-          for(int i = 0; i < p.enemigosa.size(); i++)
-          {
-
-
-          }
-          */
+        
+        // grid.update();
+        // p.enemigos[0].update();
+        //p.enemigost[0].update();
+        //p.enemigosa[0].update();
         grid.drawTo(window);
         fondo.drawTo(window);
+
+        for(int i = 0; i < p.lifes.size(); i++)
+        {
+            p.lifes[i].update();
+            p.lifes[i].drawTo(window);
+        }
+
+        for(int i = 0; i < p.monedas.size(); i++)
+        {
+            p.monedas[i].update();
+            p.monedas[i].drawTo(window);
+        }
+
+        for(int i = 0; i < p.monedas.size(); i++)
+        {
+            if(p.puntos())
+            {
+                p.monedas.erase(p.monedas.begin()+i);
+            }
+        }
+       for(int i = 0; i < p.enemigos.size(); i++)
+        {
+            p.enemigos[i].update();
+            p.enemigos[i].drawTo(window);
+        }
+        for(int i = 0; i < p.enemigosa.size(); i++)
+        {
+            p.enemigosa[i].update();
+            p.enemigosa[i].drawTo(window);
+        }
+        for(int i = 0; i < p.enemigost.size(); i++)
+        {
+            p.enemigost[i].update();
+            p.enemigost[i].drawTo(window);
+        }
+        if(p.choque())
+        {
+            p.vidas--;
+             if (!p.lifes.empty()) {
+            p.lifes.pop_back(); // Eliminar el último elemento del vector "lifes"
+            }
+         
+            //p.lifes.erase(p.lifes.begin());
+            if(p.vidas==0)
+            {
+                kirby.setColor(Color(255,255,255,0));
+            }
+            else{
+                kirby.setPosition(118,670);//posicion de origen
+            }
+           
+        }       
+
+        p.update();
         p.drawTo(window);
-        // p.enemigos[0].drawTo(window);
-        p.enemigost[0].drawTo(window);
-        p.enemigosa[0].drawTo(window);
 
         window.display();
     }
