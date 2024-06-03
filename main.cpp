@@ -88,9 +88,9 @@ showLoadingScreen();
 int main()
 {
     
-   // if (!showMainMenu()) {
-    //  return 0;
-  //}
+   if (!showMainMenu()) {
+      return 0;
+  }
   
     RenderWindow window(VideoMode(800, 800), "Echo Dash");
     window.setFramerateLimit(10);
