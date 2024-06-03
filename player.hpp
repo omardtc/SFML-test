@@ -15,6 +15,7 @@ public:
 Sprite sprite;
 string nombre;
 int vidas = 3;
+int choqueCount; // Declaración del contador de choques
 Vector2f speed = {0.f, 0.f};
 Vector2f acc = {0.f, 20.f};
 vector<Enemigo> enemigos;
@@ -31,8 +32,10 @@ void moveL();
 void drawTo(RenderWindow &window);
 void update();
 bool choque();
-bool puntos();
+//bool puntos();
+bool puntos(const Coin& coin);
+
 
 };
 
-#endif 
+#endif

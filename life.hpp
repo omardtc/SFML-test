@@ -1,3 +1,4 @@
+
 #ifndef life_h
 #define life_h
 #include <SFML/Graphics.hpp>

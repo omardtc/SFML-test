@@ -60,20 +60,31 @@ void Player::update()
     x = this->sprite.getPosition().x;
     y = this->sprite.getPosition().y;
 
- 
    if (choque())
+    {
+        this->choqueCount++; // Incrementar el contador de choques
+
+        if (this->choqueCount >= 3) // Verificar si hay 3 choques
         {
             this->vidas--;
-            if(this->vidas > 0)
+            this->choqueCount = 0; // Reiniciar el contador de choques
+
+            if (!this->lifes.empty())
             {
-            this->sprite.setPosition(118,670);//posicion de origen
+                this->lifes.pop_back(); // Eliminar el último elemento del vector "lifes"
             }
-            else
+
+            if (this->vidas == 0)
             {
                 this->sprite.setColor(Color(255,255,255,0));
             }
-        }       
-    
+            else
+            {
+                this->sprite.setPosition(118,670); // Posición de origen
+            }
+        }
+    }       
+
     
 } 
 
@@ -119,14 +130,8 @@ bool Player::choque()
     return false;
 }
 
-bool Player::puntos()
-{
-    for (int i = 0; i < monedas.size(); i++)
-    {
-        if (this->sprite.getGlobalBounds().intersects(this->monedas[i].sprite.getGlobalBounds()))
-        {
-            return true;
-        }
-     }
-     return false;
+bool Player::puntos(const Coin& coin) {
+    return sprite.getGlobalBounds().intersects(coin.sprite.getGlobalBounds());
 }
+
+//const no se modifica el estado del objeto Player

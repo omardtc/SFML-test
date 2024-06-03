@@ -1,10 +1,11 @@
+
 #ifndef coin_h
 #define coin_h
 #include <SFML/Graphics.hpp>
 using namespace sf;
 using namespace std;
 
-class Coin
+class Coin 
 {
 public:
     Sprite sprite;

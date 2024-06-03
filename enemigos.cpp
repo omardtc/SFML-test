@@ -1,3 +1,4 @@
+
 #include "enemigos.hpp"
 
 Enemigo::Enemigo(Sprite sprite, float pos)
@@ -24,7 +25,7 @@ void Enemigo::update()
 EnemigoT::EnemigoT(Sprite sprite, float pos)
 {
     this->sprite = sprite;
-    this->speed = {-15.f, 0.f};
+    this->speed = {-10.f, 0.f};
     this->acc = {0.f, 0.f};
     this->sprite.setPosition(800, pos);
 }
@@ -37,7 +38,7 @@ void EnemigoT::drawTo(RenderWindow &window)
 void EnemigoT::update()
 {
     
-    this->speed.x = -15;
+    this->speed.x = -15*.5;
     this->sprite.move(this->speed);
     this->sprite.rotate(-15.0f);
 }
@@ -65,4 +66,3 @@ void EnemigoA::update()
 
 
 }
-
