@@ -27,7 +27,7 @@ float getRandom(float min, float max)
 void showLoadingScreen() {
     cout << "Cargando..." << endl;
     cout << "[";
-    for (int i = 0; i < 80; ++i) {
+    for (int i = 0; i < 60; ++i) {
         cout << "=";
        // cout.flush();
         this_thread::sleep_for(chrono::milliseconds(100));
